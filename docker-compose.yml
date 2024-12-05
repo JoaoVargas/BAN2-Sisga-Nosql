@@ -1,0 +1,107 @@
+name: sisga-nosql
+
+services:
+  mongo:
+    container_name: mongo_nosql
+    image: ${MONGO_IMAGE}
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: ${MONGO_USER}
+      MONGO_INITDB_ROOT_PASSWORD: ${MONGO_PASSWORD}
+      GLIBC_TUNABLES: glibc.pthread.rseq=0
+    ports:
+      - "${MONGO_EXTERNAL_PORT}:${MONGO_INTERNAL_PORT}"
+    volumes:
+      - ./database/mongo:/data/db
+    networks:
+      - mongo_network
+    # sysctls:
+    #   vm.max_map_count: 262144
+    #   vm.swappiness: 1
+
+
+  mongo_express:
+    container_name: mongo_express_nosql
+    image: mongo-express
+    ports:
+      - ${MONGO_EXPRESS_EXTERNAL_PORT}:${MONGO_EXPRESS_INTERNAL_PORT}
+    environment:
+      ME_CONFIG_BASICAUTH_USERNAME: ${MONGO_EXPRESS_USER}
+      ME_CONFIG_BASICAUTH_PASSWORD: ${MONGO_EXPRESS_PASSWORD}
+      ME_CONFIG_MONGODB_PORT: ${MONGO_INTERNAL_PORT}
+      ME_CONFIG_MONGODB_ADMINUSERNAME: ${MONGO_USER}
+      ME_CONFIG_MONGODB_ADMINPASSWORD: ${MONGO_PASSWORD}
+      ME_CONFIG_MONGODB_SERVER: mongo_nosql
+    links:
+      - mongo
+    depends_on:
+      - mongo
+
+    networks:
+      - mongo_network
+
+  api:
+    container_name: sisga_api_nosql
+    # depends_on:
+      # postgres:
+      #   condition: service_healthy
+      # pgadmin:
+      #   condition: service_healthy
+    volumes:
+      - api:/api
+    build: 
+      context: ./api/
+      args: 
+        API_IMAGE: ${API_IMAGE}
+    ports:
+      - "${API_EXTERNAL_PORT}:${API_INTERNAL_PORT}"
+    networks:
+      - mongo_network
+    # healthcheck:
+    #   test: ["CMD", "curl", "localhost:${API_INTERNAL_PORT}/"]
+    #   interval: 10s
+    #   timeout: 5s
+    #   retries: 3
+
+  frontend:
+    container_name: sisga_frontend_nosql
+    # depends_on:
+    #   api:
+    #     condition: service_healthy
+    # depends_on:
+    #   postgres:
+    #     condition: service_healthy
+    #   pgadmin:
+    #     condition: service_healthy
+    volumes:
+      - frontend:/frontend
+    build: 
+      context: ./frontend/
+      args: 
+        FRONTEND_IMAGE: ${FRONTEND_IMAGE}
+    ports:
+      - "${FRONTEND_EXTERNAL_PORT}:${FRONTEND_INTERNAL_PORT}"
+    networks:
+      - mongo_network
+
+
+networks:
+  mongo_network:
+    driver: bridge
+
+volumes:
+    mongo:
+    mongo_express:
+    api:
+      driver: local
+      driver_opts:
+        type: 'none'
+        o: 'bind'
+        device: './api'
+    frontend:
+      driver: local
+      driver_opts:
+        type: 'none'
+        o: 'bind'
+        device: './frontend'
+
+

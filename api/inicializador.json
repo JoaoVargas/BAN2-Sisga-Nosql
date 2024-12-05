@@ -1,0 +1,331 @@
+{
+  "pessoas": [
+    {
+      "cpf": "50313221529",
+      "nome": "Henrique Luiz Monteiro",
+      "sexo": "0",
+      "cep": "59135712",
+      "email": "henrique_monteiro@julianacaran.com.br",
+      "data_nascimento": "01/03/1976",
+      "telefone": "84985919949"
+    },
+    {
+      "cpf": "92174492377",
+      "nome": "Rosângela Alícia Lara Assunção",
+      "sexo": "1",
+      "cep": "68909131",
+      "email": "rosangelaaliciaassuncao@costaporto.com.br",
+      "data_nascimento": "02/06/1950",
+      "telefone": "96984479759"
+    },
+    {
+      "cpf": "69503446007",
+      "nome": "Raul Carlos Eduardo Castro",
+      "sexo": "0",
+      "cep": "99704314",
+      "email": "raul_carlos_castro@gruposimoes.com.br",
+      "data_nascimento": "07/07/1978",
+      "telefone": "54993496006"
+    },
+    {
+      "cpf": "97258418830",
+      "nome": "Heitor Kauê Farias",
+      "sexo": "0",
+      "cep": "39401865",
+      "email": "heitor-farias87@negleribeiro.com",
+      "data_nascimento": "15/05/1968",
+      "telefone": "38989425292"
+    },
+    {
+      "cpf": "55130447735",
+      "nome": "Rafael Ryan Carvalho",
+      "sexo": "0",
+      "cep": "77826659",
+      "email": "rafael_carvalho@ticem.com.br",
+      "data_nascimento": "02/02/1957",
+      "telefone": "63986927644"
+    },
+    {
+      "cpf": "05007169439",
+      "nome": "Rosângela Sandra da Rocha",
+      "sexo": "1",
+      "cep": "68911044",
+      "email": "rosangela-darocha87@alvesbarcelos.com.br",
+      "data_nascimento": "07/01/1974",
+      "telefone": "96993498982"
+    },
+    {
+      "cpf": "63092223250",
+      "nome": "Josefa Beatriz Flávia Rezende",
+      "sexo": "1",
+      "cep": "57309454",
+      "email": "josefa-rezende74@lonza.com",
+      "data_nascimento": "01/01/1946",
+      "telefone": "82999827609"
+    },
+    {
+      "cpf": "00801487943",
+      "nome": "José Geraldo Fernando Silva",
+      "sexo": "0",
+      "cep": "63024380",
+      "email": "jose.geraldo.silva@way2goidiomas.com.br",
+      "data_nascimento": "02/03/1978",
+      "telefone": "88998344198"
+    },
+    {
+      "cpf": "95937912217",
+      "nome": "Andrea Sebastiana Aline Mendes",
+      "sexo": "1",
+      "cep": "54762295",
+      "email": "andreasebastianamendes@tia.mat.br",
+      "data_nascimento": "19/07/1991",
+      "telefone": "81998594805"
+    },
+    {
+      "cpf": "76623559345",
+      "nome": "Nathan Pedro Ribeiro",
+      "sexo": "0",
+      "cep": "64057420",
+      "email": "nathan-ribeiro82@pisbrasil.com.br",
+      "data_nascimento": "17/04/1978",
+      "telefone": "86986718448"
+    }
+  ],
+  "coordenadores": [
+    {
+      "cpf": "50313221529",
+      "salario": "15000"
+    },
+    {
+      "cpf": "92174492377",
+      "salario": "17500"
+    }
+
+  ],
+  "professores": [
+    {
+      "cpf": "69503446007",
+      "salario": "12000",
+      "formacao": "Mestre"
+    },
+    {
+      "cpf": "97258418830",
+      "salario": "14500",
+      "formacao": "Doutor"
+    },
+    {
+      "cpf": "55130447735",
+      "salario": "10500",
+      "formacao": "Mestre"
+    }
+  ],
+  "alunos": [
+    {
+      "cpf": "05007169439"
+    },
+    {
+      "cpf": "63092223250"
+    },
+    {
+      "cpf": "00801487943"
+    },
+    {
+      "cpf": "95937912217"
+    },
+    {
+      "cpf": "76623559345"
+    }
+  ],
+  "cursos": [
+    {
+      "nome": "Bacharelado em Ciências da Computação",
+      "periodo": "i",
+      "credito_total": "10",
+      "cod_coordenador": "1"
+    },
+    {
+      "nome": "Tecnologo em Análise e Desenvolvimento de Sistemas",
+      "periodo": "n",
+      "credito_total": "8",
+      "cod_coordenador": "2"
+    }
+  ],
+  "disciplinas": [
+    {
+      "nome": "Programação Básica",
+      "fase": "1",
+      "creditos": "2"
+    },{
+      "nome": "Computação Básica",
+      "fase": "1",
+      "creditos": "4"
+    },
+    {
+      "nome": "Computação Avançada",
+      "fase": "2",
+      "creditos": "4"
+    },
+    {
+      "nome": "Teoria Geral de Sistemas",
+      "fase": "1",
+      "creditos": "2"
+    },
+    {
+      "nome": "Banco de Dados",
+      "fase": "2",
+      "creditos": "4"
+    }
+  ],
+  "curso_disciplinas": [
+    {
+      "cod_curso": "1",
+      "cod_disciplina": "1"
+    },
+    {
+      "cod_curso": "1",
+      "cod_disciplina": "2"
+    },
+    {
+      "cod_curso": "1",
+      "cod_disciplina": "3"
+    },
+    {
+      "cod_curso": "2",
+      "cod_disciplina": "1"
+    },
+    {
+      "cod_curso": "2",
+      "cod_disciplina": "4"
+    },
+    {
+      "cod_curso": "2",
+      "cod_disciplina": "5"
+    }
+  ],
+  "turmas": [
+    {
+      "cod_disciplina": "1",
+      "cod_professor": "1",
+      "sala": "F101",
+      "max_alunos": "20",
+      "agenda": {"segunda": "13:30", "quarta": "13:30"}
+    },
+    {
+      "cod_disciplina": "2",
+      "cod_professor": "2",
+      "sala": "F102",
+      "max_alunos": "20",
+      "agenda": {"terça": "10:10", "quinta": "10:10"}
+    },
+    {
+      "cod_disciplina": "3",
+      "cod_professor": "3",
+      "sala": "F103",
+      "max_alunos": "20",
+      "agenda": {"segunda": "13:30", "quarta": "13:30"}
+    },
+    {
+      "cod_disciplina": "1",
+      "cod_professor": "1",
+      "sala": "F101",
+      "max_alunos": "20",
+      "agenda": {"segunda": "19:00", "quarta": "19:00"}
+    },
+    {
+      "cod_disciplina": "4",
+      "cod_professor": "2",
+      "sala": "F102",
+      "max_alunos": "20",
+      "agenda": {"terça": "19:00", "quinta": "19:00"}
+    },
+    {
+      "cod_disciplina": "5",
+      "cod_professor": "3",
+      "sala": "F101",
+      "max_alunos": "20",
+      "agenda": {"segunda": "20:50", "quarta": "20:50"}
+    }
+  ],
+  "relatorios": [
+    {
+    "cod_aluno": "1",
+    "cod_turma": "1",
+    "notas": "{9.5, 7.0}",
+    "faltas": "{2024-08-12, 2024-08-14}"
+    },
+    {
+    "cod_aluno": "1",
+    "cod_turma": "2",
+    "notas": "{5.5, 6.2}",
+    "faltas": "{2024-08-13, 2024-08-15}"
+    },
+    {
+    "cod_aluno": "2",
+    "cod_turma": "4",
+    "notas": "{9.5, 7.0}",
+    "faltas": "{2024-08-12, 2024-08-14}"
+    },
+    {
+    "cod_aluno": "2",
+    "cod_turma": "5",
+    "notas": "{5.5, 6.2}",
+    "faltas": "{2024-08-13, 2024-08-15}"
+    },
+    {
+    "cod_aluno": "3",
+    "cod_turma": "3",
+    "notas": "{5.5, 6.0}",
+    "faltas": "{2024-08-12, 2024-08-14}"
+    },
+    {
+    "cod_aluno": "4",
+    "cod_turma": "6",
+    "notas": "{7.5, 3.2}",
+    "faltas": "{2024-08-12, 2024-08-14}"
+    }
+  ],
+  "historicos": [
+    {
+      "cod_aluno": "3",
+      "cod_disciplina": "1",
+      "nota_geral": "7.2",
+      "frequencia_geral": "0.92",
+      "aprovacao_final": "true"
+    },
+    {
+      "cod_aluno": "3",
+      "cod_disciplina": "2",
+      "nota_geral": "9.5",
+      "frequencia_geral": "0.87",
+      "aprovacao_final": "true"
+    },
+    {
+      "cod_aluno": "4",
+      "cod_disciplina": "1",
+      "nota_geral": "7.2",
+      "frequencia_geral": "0.92",
+      "aprovacao_final": "true"
+    },
+    {
+      "cod_aluno": "4",
+      "cod_disciplina": "4",
+      "nota_geral": "6.5",
+      "frequencia_geral": "0.75",
+      "aprovacao_final": "true"
+    },
+    {
+      "cod_aluno": "5",
+      "cod_disciplina": "1",
+      "nota_geral": "2.5",
+      "frequencia_geral": "0.50",
+      "aprovacao_final": "false"
+    },
+    {
+      "cod_aluno": "5",
+      "cod_disciplina": "2",
+      "nota_geral": "1.5",
+      "frequencia_geral": "0.20",
+      "aprovacao_final": "false"
+    }
+  ]
+}
