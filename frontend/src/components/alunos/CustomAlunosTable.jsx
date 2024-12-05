@@ -34,7 +34,7 @@ const CustomAlunosTable = ({alunos}) => {
               alunos && alunos.length > 0
               ?
               alunos.map((aluno, id) => {
-                  const date = new Date(aluno[4]);
+                  const date = new Date(aluno["pessoa"]["data_nascimento"]);
                   const day = String(date.getUTCDate()).padStart(2, '0');
                   const month = String(date.getUTCMonth() + 1).padStart(2, '0'); // Os meses são de 0 a 11, então adicionamos 1
                   const year = date.getUTCFullYear();
@@ -44,16 +44,16 @@ const CustomAlunosTable = ({alunos}) => {
                   return (
                     <tr 
                     key={id} 
-                    onClick={() => navigate("/alunos/"+ aluno[0])}
+                    onClick={() => navigate("/alunos/"+ aluno["cod_aluno"])}
                     role='button'>
-                      <td>{aluno[0]}</td>
-                      <td>{aluno[1]}</td>
-                      <td>{aluno[2]}</td>
-                      <td>{aluno[3]}</td>
+                      <td>{aluno["cod_aluno"]}</td>
+                      <td>{aluno["cpf"]}</td>
+                      <td>{aluno["pessoa"]["nome"]}</td>
+                      <td>{aluno["pessoa"]["email"]}</td>
                       <td>{nasc}</td>
-                      <td>{sexo[aluno[5]]}</td>
-                      <td>{aluno[6]}</td>
-                      <td>{aluno[7]}</td>
+                      <td>{sexo[aluno["pessoa"]["sexo"]]}</td>
+                      <td>{aluno["pessoa"]["cep"]}</td>
+                      <td>{aluno["pessoa"]["telefone"]}</td>
                     </tr>
                   )
                   

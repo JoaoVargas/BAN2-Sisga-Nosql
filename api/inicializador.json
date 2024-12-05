@@ -1,6 +1,7 @@
 {
   "pessoas": [
     {
+      "cod_pessoa": "1",
       "cpf": "50313221529",
       "nome": "Henrique Luiz Monteiro",
       "sexo": "0",
@@ -10,6 +11,7 @@
       "telefone": "84985919949"
     },
     {
+      "cod_pessoa": "2",
       "cpf": "92174492377",
       "nome": "Rosângela Alícia Lara Assunção",
       "sexo": "1",
@@ -19,6 +21,7 @@
       "telefone": "96984479759"
     },
     {
+      "cod_pessoa": "3",
       "cpf": "69503446007",
       "nome": "Raul Carlos Eduardo Castro",
       "sexo": "0",
@@ -28,15 +31,17 @@
       "telefone": "54993496006"
     },
     {
+      "cod_pessoa": "4",
       "cpf": "97258418830",
       "nome": "Heitor Kauê Farias",
       "sexo": "0",
       "cep": "39401865",
       "email": "heitor-farias87@negleribeiro.com",
-      "data_nascimento": "15/05/1968",
+      "data_nascimento": "05/15/1968",
       "telefone": "38989425292"
     },
     {
+      "cod_pessoa": "5",
       "cpf": "55130447735",
       "nome": "Rafael Ryan Carvalho",
       "sexo": "0",
@@ -46,6 +51,7 @@
       "telefone": "63986927644"
     },
     {
+      "cod_pessoa": "6",
       "cpf": "05007169439",
       "nome": "Rosângela Sandra da Rocha",
       "sexo": "1",
@@ -55,6 +61,7 @@
       "telefone": "96993498982"
     },
     {
+      "cod_pessoa": "7",
       "cpf": "63092223250",
       "nome": "Josefa Beatriz Flávia Rezende",
       "sexo": "1",
@@ -64,6 +71,7 @@
       "telefone": "82999827609"
     },
     {
+      "cod_pessoa": "8",
       "cpf": "00801487943",
       "nome": "José Geraldo Fernando Silva",
       "sexo": "0",
@@ -73,47 +81,53 @@
       "telefone": "88998344198"
     },
     {
+      "cod_pessoa": "9",
       "cpf": "95937912217",
       "nome": "Andrea Sebastiana Aline Mendes",
       "sexo": "1",
       "cep": "54762295",
       "email": "andreasebastianamendes@tia.mat.br",
-      "data_nascimento": "19/07/1991",
+      "data_nascimento": "07/19/1991",
       "telefone": "81998594805"
     },
     {
+      "cod_pessoa": "10",
       "cpf": "76623559345",
       "nome": "Nathan Pedro Ribeiro",
       "sexo": "0",
       "cep": "64057420",
       "email": "nathan-ribeiro82@pisbrasil.com.br",
-      "data_nascimento": "17/04/1978",
+      "data_nascimento": "04/17/1978",
       "telefone": "86986718448"
     }
   ],
   "coordenadores": [
     {
+      "cod_coordenador": "1",
       "cpf": "50313221529",
       "salario": "15000"
     },
     {
+      "cod_coordenador": "2",
       "cpf": "92174492377",
       "salario": "17500"
     }
-
   ],
   "professores": [
     {
+      "cod_professor": "1",
       "cpf": "69503446007",
       "salario": "12000",
       "formacao": "Mestre"
     },
     {
+      "cod_professor": "2",
       "cpf": "97258418830",
       "salario": "14500",
       "formacao": "Doutor"
     },
     {
+      "cod_professor": "3",
       "cpf": "55130447735",
       "salario": "10500",
       "formacao": "Mestre"
@@ -121,29 +135,36 @@
   ],
   "alunos": [
     {
+      "cod_aluno": "1",
       "cpf": "05007169439"
     },
     {
+      "cod_aluno": "2",
       "cpf": "63092223250"
     },
     {
+      "cod_aluno": "3",
       "cpf": "00801487943"
     },
     {
+      "cod_aluno": "4",
       "cpf": "95937912217"
     },
     {
+      "cod_aluno": "5",
       "cpf": "76623559345"
     }
   ],
   "cursos": [
     {
+      "cod_curso": "1",
       "nome": "Bacharelado em Ciências da Computação",
       "periodo": "i",
       "credito_total": "10",
       "cod_coordenador": "1"
     },
     {
+      "cod_curso": "2",
       "nome": "Tecnologo em Análise e Desenvolvimento de Sistemas",
       "periodo": "n",
       "credito_total": "8",
@@ -152,25 +173,36 @@
   ],
   "disciplinas": [
     {
+      "cod_curso": "1",
+      "cod_disciplina": "1",
       "nome": "Programação Básica",
       "fase": "1",
       "creditos": "2"
-    },{
+    },
+    {
+      "cod_curso": "1",
+      "cod_disciplina": "2",
       "nome": "Computação Básica",
       "fase": "1",
       "creditos": "4"
     },
     {
+      "cod_curso": "1",
+      "cod_disciplina": "3",
       "nome": "Computação Avançada",
       "fase": "2",
       "creditos": "4"
     },
     {
+      "cod_curso": "2",
+      "cod_disciplina": "4",
       "nome": "Teoria Geral de Sistemas",
       "fase": "1",
       "creditos": "2"
     },
     {
+      "cod_curso": "2",
+      "cod_disciplina": "5",
       "nome": "Banco de Dados",
       "fase": "2",
       "creditos": "4"
@@ -204,6 +236,7 @@
   ],
   "turmas": [
     {
+      "cod_turma": "1",
       "cod_disciplina": "1",
       "cod_professor": "1",
       "sala": "F101",
@@ -211,6 +244,7 @@
       "agenda": {"segunda": "13:30", "quarta": "13:30"}
     },
     {
+      "cod_turma": "2",
       "cod_disciplina": "2",
       "cod_professor": "2",
       "sala": "F102",
@@ -218,6 +252,7 @@
       "agenda": {"terça": "10:10", "quinta": "10:10"}
     },
     {
+      "cod_turma": "3",
       "cod_disciplina": "3",
       "cod_professor": "3",
       "sala": "F103",
@@ -225,6 +260,7 @@
       "agenda": {"segunda": "13:30", "quarta": "13:30"}
     },
     {
+      "cod_turma": "4",
       "cod_disciplina": "1",
       "cod_professor": "1",
       "sala": "F101",
@@ -232,6 +268,7 @@
       "agenda": {"segunda": "19:00", "quarta": "19:00"}
     },
     {
+      "cod_turma": "5",
       "cod_disciplina": "4",
       "cod_professor": "2",
       "sala": "F102",
@@ -239,6 +276,7 @@
       "agenda": {"terça": "19:00", "quinta": "19:00"}
     },
     {
+      "cod_turma": "6",
       "cod_disciplina": "5",
       "cod_professor": "3",
       "sala": "F101",

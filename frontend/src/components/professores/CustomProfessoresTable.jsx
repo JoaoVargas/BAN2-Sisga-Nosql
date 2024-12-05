@@ -15,6 +15,19 @@ const CustomProfessoresTable = ({professores}) => {
     return `${year}-${month}-${day}`;
   }
 
+  // {
+  //   "cep": "99704314",
+  //   "cod_professor": "1",
+  //   "cpf": "69503446007",
+  //   "data_nascimento": "07/07/1978",
+  //   "email": "raul_carlos_castro@gruposimoes.com.br",
+  //   "formacao": "Mestre",
+  //   "nome": "Raul Carlos Eduardo Castro",
+  //   "salario": "12000",
+  //   "sexo": "0",
+  //   "telefone": "54993496006"
+  // },
+
   return (
     <>
       <Container 
@@ -48,18 +61,18 @@ const CustomProfessoresTable = ({professores}) => {
                   return (
                     <tr 
                     key={id} 
-                    onClick={() => navigate("/professores/"+ professor[0])}
+                    onClick={() => navigate("/professores/"+ professor["cod_professor"])}
                     role='button'>
-                      <td>{professor[0]}</td>
-                      <td>{professor[1]}</td>
-                      <td>{professor[2]}</td>
-                      <td>{professor[3]}</td>
-                      <td>{formatDate(professor[4])}</td>
-                      <td>{sexo[professor[5]]}</td>
-                      <td>{professor[6]}</td>
-                      <td>{professor[7]}</td>
-                      <td>{professor[8]}</td>
-                      <td>{professor[9]}</td>
+                      <td>{professor["cod_professor"]}</td>
+                      <td>{professor["cpf"]}</td>
+                      <td>{professor["nome"]}</td>
+                      <td>{professor["email"]}</td>
+                      <td>{formatDate(professor["data_nascimento"])}</td>
+                      <td>{sexo[professor["sexo"]]}</td>
+                      <td>{professor["cep"]}</td>
+                      <td>{professor["telefone"]}</td>
+                      <td>{professor["salario"]}</td>
+                      <td>{professor["formacao"]}</td>
                     </tr>
                   )
                 })

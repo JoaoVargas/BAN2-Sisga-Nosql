@@ -15,6 +15,20 @@ const CustomCoordenadoresTable = ({coordenadores}) => {
     return `${year}-${month}-${day}`;
   }
 
+  // {
+  //   "cod_coordenador": "1",
+  //   "cpf": "50313221529",
+  //   "pessoa_info": {
+  //     "cep": "59135712",
+  //     "data_nascimento": "01/03/1976",
+  //     "email": "henrique_monteiro@julianacaran.com.br",
+  //     "nome": "Henrique Luiz Monteiro",
+  //     "sexo": "0",
+  //     "telefone": "84985919949"
+  //   },
+  //   "salario": "15000"
+  // },
+
   return (
     <>
       <h1 className='mt-5'><center>Coordenadores</center></h1>
@@ -48,17 +62,17 @@ const CustomCoordenadoresTable = ({coordenadores}) => {
                   return (
                     <tr 
                     key={id} 
-                    onClick={() => navigate("/coordenadores/"+ coordenador[0])}
+                    onClick={() => navigate("/coordenadores/"+ coordenador["cod_coordenador"])}
                     role='button'>
-                      <td>{coordenador[0]}</td>
-                      <td>{coordenador[1]}</td>
-                      <td>{coordenador[2]}</td>
-                      <td>{coordenador[3]}</td>
-                      <td>{formatDate(coordenador[4])}</td>
-                      <td>{sexo[coordenador[5]]}</td>
-                      <td>{coordenador[6]}</td>
-                      <td>{coordenador[7]}</td>
-                      <td>{coordenador[8]}</td>
+                      <td>{coordenador["cod_coordenador"]}</td>
+                      <td>{coordenador["cpf"]}</td>
+                      <td>{coordenador["pessoa_info"]["nome"]}</td>
+                      <td>{coordenador["pessoa_info"]["email"]}</td>
+                      <td>{formatDate(coordenador["pessoa_info"]["data_nascimento"])}</td>
+                      <td>{sexo[coordenador["pessoa_info"]["sexo"]]}</td>
+                      <td>{coordenador["pessoa_info"]["cep"]}</td>
+                      <td>{coordenador["pessoa_info"]["telefone"]}</td>
+                      <td>{coordenador["salario"]}</td>
                     </tr>
                   )
                 })

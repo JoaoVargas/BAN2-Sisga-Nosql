@@ -234,7 +234,7 @@ const Coordenadores = () => {
       centered>
         <Form onSubmit={(e) => handleCriarCurso(e)}>
           <Modal.Header closeButton>
-            <Modal.Title>Criar Coordenador</Modal.Title>
+            <Modal.Title>Criar Curso</Modal.Title>
           </Modal.Header>
           <Modal.Body>
               <Form.Group className="mb-3" controlId="nome">
@@ -269,7 +269,7 @@ const Coordenadores = () => {
                 <Form.Label>Coordenador:</Form.Label>
                 <Form.Select onChange={(e) => setCursoCoordenador(e.target.value)} value={cursoCoordenador}>
                   { coordenadores.map((c) => (
-                      <option key={c[0]} value={c[0]}>{c[2]}</option>
+                      <option key={c["cod_coordenador"]} value={c["cod_coordenador"]}>{c["pessoa_info"]["nome"]}</option>
                     )
                   )}
                 </Form.Select>

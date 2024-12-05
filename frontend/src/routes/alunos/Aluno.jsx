@@ -29,35 +29,51 @@ const Aluno = () => {
 
   let { cod_aluno } = useParams();
 
-  useEffect(() => {
-    fetch('http://0.0.0.0:5002/historicoescolar/' + cod_aluno, { 
-      method: 'GET',
-      headers: {
-        'Accept': 'application/json',
-        'Content-Type': 'application/json'
-      }
-    })
-    .then((res) => res.json())
-    .then((dataHistorico) => {
-      console.log(dataHistorico);
-      sethistorico(dataHistorico)
-    })
-  }, []);
+  console.log('codaluno', cod_aluno);
+  
 
-  useEffect(() => {
-    fetch('http://0.0.0.0:5002/conclusaoescolar/' + cod_aluno, { 
-      method: 'GET',
-      headers: {
-        'Accept': 'application/json',
-        'Content-Type': 'application/json'
-      }
-    })
-    .then((res) => res.json())
-    .then((dataConclusao) => {
-      console.log(dataConclusao[0][0]);
-      setConclusao(dataConclusao[0][0])
-    })
-  }, []);
+  // useEffect(() => {
+  //   fetch('http://0.0.0.0:5002/historicoescolar/' + cod_aluno, { 
+  //     method: 'GET',
+  //     headers: {
+  //       'Accept': 'application/json',
+  //       'Content-Type': 'application/json'
+  //     }
+  //   })
+  //   .then((res) => res.json())
+  //   .then((dataHistorico) => {
+  //     console.log(dataHistorico);
+  //     sethistorico(dataHistorico)
+  //   })
+  // }, []);
+
+  // useEffect(() => {
+  //   fetch('http://0.0.0.0:5002/conclusaoescolar/' + cod_aluno, { 
+  //     method: 'GET',
+  //     headers: {
+  //       'Accept': 'application/json',
+  //       'Content-Type': 'application/json'
+  //     }
+  //   })
+  //   .then((res) => res.json())
+  //   .then((dataConclusao) => {
+  //     console.log(dataConclusao[0][0]);
+  //     setConclusao(dataConclusao[0][0])
+  //   })
+  // }, []);
+
+  // {
+  //   "cod_aluno": "1",
+  //   "cpf": "05007169439",
+  //   "pessoa": {
+  //     "cep": "68911044",
+  //     "data_nascimento": "07/01/1974",
+  //     "email": "rosangela-darocha87@alvesbarcelos.com.br",
+  //     "nome": "Rosângela Sandra da Rocha",
+  //     "sexo": "1",
+  //     "telefone": "96993498982"
+  //   }
+  // }
 
   useEffect(() => {
     fetch('http://0.0.0.0:5002/alunospessoas/' + cod_aluno, { 
@@ -67,19 +83,23 @@ const Aluno = () => {
         'Content-Type': 'application/json'
       }
     })
-    .then((res) => res.json())
+    // .then((res) => res.json())
     .then((dataAluno) => {
-      console.log(dataAluno[0]);
-      setAluno(dataAluno[0])
-      setAlunoCod(dataAluno[0][0])
-      setAlunoCpf(dataAluno[0][1])
-      setAlunoNome(dataAluno[0][2])
-      setAlunoEmail(dataAluno[0][3])
-      setAlunoData(formatDateVar(dataAluno[0][4]))
-      setAlunoSexo(dataAluno[0][5])
-      setAlunoCep(dataAluno[0][6])
-      setAlunoCel(dataAluno[0][7])
+      console.log(dataAluno);
+      
+      setAluno(dataAluno)
+      setAlunoCod(dataAluno["cod_aluno"])
+      setAlunoCpf(dataAluno["cpf"])
+      setAlunoNome(dataAluno["pessoa"]["nome"])
+      setAlunoEmail(dataAluno["pessoa"]["email"])
+      setAlunoData(formatDateVar(dataAluno["pessoa"]["data_nascimento"]))
+      setAlunoSexo(dataAluno["pessoa"]["sexo"])
+      setAlunoCep(dataAluno["pessoa"]["cep"])
+      setAlunoCel(dataAluno["pessoa"]["telefone"])
     })
+
+    console.log(dataAluno);
+    
   }, []);
 
   const formatDate = (input) => {
@@ -198,16 +218,16 @@ const Aluno = () => {
             className='d-flex flex-row justify-content-around'>
               <div 
               className='d-flex flex-column'>
-                <p> <b>Cpf:</b> {aluno[1]} </p>
-                <p> <b>Nome:</b> {aluno[2]} </p>
-                <p> <b>Email:</b> {aluno[3]} </p>
-                <p> <b>Nascimento:</b> {formatDate(aluno[4])} </p>
+                <p> <b>Cpf:</b> {alunoCpf} </p>
+                <p> <b>Nome:</b> {alunoNome} </p>
+                <p> <b>Email:</b> {alunoEmail} </p>
+                <p> <b>Nascimento:</b> {formatDate(alunoData)} </p>
               </div>
               <div 
               className='d-flex flex-column'>
-                <p> <b>Sexo:</b> {sexo[aluno[5]]} </p>
-                <p> <b>Cep:</b> {aluno[6]} </p>
-                <p> <b>Celular:</b> {aluno[7]} </p>
+                <p> <b>Sexo:</b> {alunoSexo} </p>
+                <p> <b>Cep:</b> {alunoCep} </p>
+                <p> <b>Celular:</b> {alunoCel} </p>
               </div>
             </div>
           </Card.Body>

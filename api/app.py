@@ -20,255 +20,42 @@ def health_check():
 
 @app.route('/inicializar', methods=['GET'])
 def inicializar():
-  with conn.cursor() as cursor:
-    cursor.execute("SELECT * FROM pessoas")
-    pessoas =cursor.fetchall()
-  with conn.cursor() as cursor:
-    cursor.execute("SELECT * FROM disciplinas")
-    disciplinas =cursor.fetchall()
-      
-  if len(pessoas) != 0 and len(disciplinas) != 0:
-    return jsonify({'error': 'Banco já inicializado'})
-  
-  with open('./inicializador.json', 'r') as file:
-    data = json.load(file)
-  
-  for pessoa in data["pessoas"]:
-    with conn.cursor() as cursorpessoa:
-      cursorpessoa.execute(
-        """INSERT INTO public.pessoas (
-        cpf, 
-        nome, 
-        sexo, 
-        cep, 
-        email, 
-        data_nascimento, 
-        telefone
-        ) 
-        VALUES (%s, %s, %s, %s, %s, %s, %s) 
-        RETURNING cpf;
-        """,
-        (
-        pessoa["cpf"], 
-        pessoa["nome"], 
-        pessoa["sexo"], 
-        pessoa["cep"], 
-        pessoa["email"],
-        dt.datetime.strptime(pessoa["data_nascimento"], '%d/%m/%Y').date(),
-        pessoa["telefone"]
-        )
-      )
-      pessoa = cursorpessoa.fetchone()[0]
-      print(pessoa)
-      conn.commit()
-      cursorpessoa.close()
-  
-  for coordenador in data["coordenadores"]:
-    with conn.cursor() as cursorcoordenador:
-      cursorcoordenador.execute(
-        """INSERT INTO public.coordenadores (
-        cpf, 
-        salario
-        ) 
-        VALUES (%s, %s) 
-        RETURNING cod_coordenador;
-        """,
-        (
-        coordenador["cpf"], 
-        coordenador["salario"]
-        )
-      )
-      coordenador = cursorcoordenador.fetchone()[0]
-      print(coordenador)
-      conn.commit()
-      cursorcoordenador.close()
-  
-  for professor in data["professores"]:
-    with conn.cursor() as cursorprofessor:
-      cursorprofessor.execute(
-        """INSERT INTO public.professores (
-        cpf, 
-        salario,
-        formacao
-        ) 
-        VALUES (%s, %s, %s) 
-        RETURNING cod_professor;
-        """,
-        (
-        professor["cpf"], 
-        professor["salario"],
-        professor["formacao"]
-        )
-      )
-      professor = cursorprofessor.fetchone()[0]
-      print(professor)
-      conn.commit()
-      cursorprofessor.close()
-  
-  for aluno in data["alunos"]:
-    with conn.cursor() as cursoraluno:
-      cursoraluno.execute(
-        """INSERT INTO public.alunos (
-        cpf
-        ) 
-        VALUES (%s) 
-        RETURNING cod_aluno;
-        """,
-        (
-        [aluno["cpf"]] # quando só tem um item precisa settar como array
-        )
-      )
-      aluno = cursoraluno.fetchone()[0]
-      print(aluno)
-      conn.commit()
-      cursoraluno.close()
-  
-  for curso in data["cursos"]:
-    with conn.cursor() as cursorcurso:
-      cursorcurso.execute(
-        """INSERT INTO public.cursos (
-        nome,
-        periodo,
-        credito_total,
-        cod_coordenador
-        ) 
-        VALUES (%s, %s, %s, %s) 
-        RETURNING cod_curso;
-        """,
-        (
-        curso["nome"], 
-        curso["periodo"],
-        curso["credito_total"],
-        curso["cod_coordenador"]
-        )
-      )
-      curso = cursorcurso.fetchone()[0]
-      print(curso)
-      conn.commit()
-      cursorcurso.close()
-  
-  for disciplina in data["disciplinas"]:
-    with conn.cursor() as cursordisciplina:
-      cursordisciplina.execute(
-        """INSERT INTO public.disciplinas (
-        nome,
-        fase,
-        creditos
-        ) 
-        VALUES (%s, %s, %s) 
-        RETURNING cod_disciplina;
-        """,
-        (
-        disciplina["nome"], 
-        disciplina["fase"],
-        disciplina["creditos"]
-        )
-      )
-      disciplina = cursordisciplina.fetchone()[0]
-      print(disciplina)
-      conn.commit()
-      cursordisciplina.close()
-  
-  for curso_disciplina in data["curso_disciplinas"]:
-    with conn.cursor() as cursorcurso_disciplina:
-      cursorcurso_disciplina.execute(
-        """INSERT INTO public.curso_disciplinas (
-        cod_curso,
-        cod_disciplina
-        ) 
-        VALUES (%s, %s) 
-        RETURNING cod_curso_disciplina;
-        """,
-        (
-        curso_disciplina["cod_curso"], 
-        curso_disciplina["cod_disciplina"]
-        )
-      )
-      curso_disciplina = cursorcurso_disciplina.fetchone()[0]
-      print(curso_disciplina)
-      conn.commit()
-      cursorcurso_disciplina.close()
-  
-  for turma in data["turmas"]:    
-    with conn.cursor() as cursorturma:
-      cursorturma.execute(
-        """INSERT INTO public.turmas (
-        cod_disciplina,
-        cod_professor,
-        sala,
-        max_alunos,
-        agenda
-        ) 
-        VALUES (%s, %s, %s, %s, %s) 
-        RETURNING cod_turma;
-        """,
-        (
-        turma["cod_disciplina"], 
-        turma["cod_professor"], 
-        turma["sala"], 
-        turma["max_alunos"], 
-        json.dumps(turma["agenda"], ensure_ascii=False)
-        )
-      )
-      turma = cursorturma.fetchone()[0]
-      print(turma)
-      conn.commit()
-      cursorturma.close()
-  
-  for relatorio in data["relatorios"]:    
-    with conn.cursor() as cursorrelatorio:
-      cursorrelatorio.execute(
-        """INSERT INTO public.relatorios (
-        cod_aluno,
-        cod_turma,
-        notas,
-        faltas
-        ) 
-        VALUES (%s, %s, %s::real[], %s::date[]) 
-        RETURNING cod_relatorio;
-        """,
-        (
-        relatorio["cod_aluno"], 
-        relatorio["cod_turma"], 
-        relatorio["notas"], 
-        relatorio["faltas"]
-        )
-      )
-      relatorio = cursorrelatorio.fetchone()[0]
-      print(relatorio)
-      conn.commit()
-      cursorrelatorio.close()
-  
-  for historico in data["historicos"]:    
-    with conn.cursor() as cursorhistorico:
-      cursorhistorico.execute(
-        """INSERT INTO public.historicos (
-        cod_aluno,
-        cod_disciplina,
-        nota_geral,
-        frequencia_geral,
-        aprovacao_final
-        ) 
-        VALUES (%s, %s, %s, %s, %s) 
-        RETURNING cod_historico;
-        """,
-        (
-        historico["cod_aluno"], 
-        historico["cod_disciplina"], 
-        historico["nota_geral"], 
-        historico["frequencia_geral"], 
-        historico["aprovacao_final"]
-        )
-      )
-      historico = cursorhistorico.fetchone()[0]
-      print(historico)
-      conn.commit()
-      cursorhistorico.close()
-      
-      
-    
-      
-  return jsonify({'message': 'Banco inicializado com sucesso'})
+    # Verificar se o banco já está inicializado
+    if db['pessoas'].count_documents({}) > 0 and db['disciplinas'].count_documents({}) > 0:
+        return jsonify({'error': 'Banco já inicializado'})
+
+    # Carregar dados do arquivo JSON
+    with open('./inicializador.json', 'r') as file:
+        data = json.load(file)
+
+    # Inserção dos dados no MongoDB
+    try:
+        # db.createCollection("alunos");
+        # db.createCollection("coordenadores");
+        # db.createCollection("curso_disciplinas");
+        # db.createCollection("cursos");
+        # db.createCollection("disciplinas");
+        # db.createCollection("historicos");
+        # db.createCollection("pessoas");
+        # db.createCollection("professores");
+        # db.createCollection("relatorios");
+        # db.createCollection("turmas");
+
+        
+        db['pessoas'].insert_many(data["pessoas"])
+        db['coordenadores'].insert_many(data["coordenadores"])
+        db['professores'].insert_many(data["professores"])
+        db['alunos'].insert_many(data["alunos"])
+        db['cursos'].insert_many(data["cursos"])
+        db['disciplinas'].insert_many(data["disciplinas"])
+        db['curso_disciplinas'].insert_many(data["curso_disciplinas"])
+        db['turmas'].insert_many(data["turmas"])
+        db['relatorios'].insert_many(data["relatorios"])
+        db['historicos'].insert_many(data["historicos"])
+    except Exception as e:
+        return jsonify({'error': str(e)}), 500
+
+    return jsonify({'message': 'Banco inicializado com sucesso'})
 
 
 
@@ -529,6 +316,9 @@ def get_coordenadorescursos():
     return jsonify(cursos)
 
 
+
+
+
 # Professores
 @app.route('/professores', methods=['GET'])
 def get_professores():
@@ -726,14 +516,13 @@ def delete_professorpessoa(cod_professor):
 
 
 
-
 # Alunos
 @app.route('/alunos', methods=['GET'])
 def get_alunos():
     alunos = list(db['alunos'].find({}, {'_id': 0}))  # Ignora o campo '_id' ao retornar
     return jsonify(alunos)
 
-@app.route('/alunos/<int:cod_aluno>', methods=['GET'])
+@app.route('/alunos/<string:cod_aluno>', methods=['GET'])
 def get_aluno(cod_aluno):
     aluno = db['alunos'].find_one({"cod_aluno": cod_aluno}, {'_id': 0})
     if aluno:
@@ -751,7 +540,7 @@ def create_aluno():
     db['alunos'].insert_one(aluno_data)
     return jsonify({'cod_aluno': cod_aluno}), 201
 
-@app.route('/alunos/<int:cod_aluno>', methods=['PUT'])
+@app.route('/alunos/<string:cod_aluno>', methods=['PUT'])
 def update_aluno(cod_aluno):
     data = request.json
     update_result = db['alunos'].update_one(
@@ -762,13 +551,12 @@ def update_aluno(cod_aluno):
         return jsonify({'error': 'Aluno não encontrado'}), 404
     return jsonify({'message': 'Aluno atualizado com sucesso'})
 
-@app.route('/alunos/<int:cod_aluno>', methods=['DELETE'])
+@app.route('/alunos/<string:cod_aluno>', methods=['DELETE'])
 def delete_aluno(cod_aluno):
     delete_result = db['alunos'].delete_one({"cod_aluno": cod_aluno})
     if delete_result.deleted_count == 0:
         return jsonify({'error': 'Aluno não encontrado'}), 404
     return jsonify({'message': 'Aluno deletado com sucesso'})
-
 
 
 
@@ -806,7 +594,7 @@ def get_alunospessoas():
     alunospessoas = list(db['alunos'].aggregate(pipeline))
     return jsonify(alunospessoas)
 
-@app.route('/alunospessoas/<int:cod_aluno>', methods=['GET'])
+@app.route('/alunospessoas/<string:cod_aluno>', methods=['GET'])
 def get_alunopessoa(cod_aluno):
     pipeline = [
         {"$match": {"cod_aluno": cod_aluno}},
@@ -872,14 +660,13 @@ def create_alunospessoas():
 
 
 
-
 # Cursos
 @app.route('/cursos', methods=['GET'])
 def get_cursos():
     cursos = list(db['cursos'].find({}, {"_id": 0}))  # Retorna todos os cursos, omitindo o campo "_id"
     return jsonify(cursos)
 
-@app.route('/cursos/<int:cod_curso>', methods=['GET'])
+@app.route('/cursos/<string:cod_curso>', methods=['GET'])
 def get_curso(cod_curso):
     curso = db['cursos'].find_one({"cod_curso": cod_curso}, {"_id": 0})
     if curso:
@@ -901,7 +688,7 @@ def create_curso():
     db['cursos'].insert_one(curso)
     return jsonify({'cod_curso': cod_curso}), 201
 
-@app.route('/cursos/<int:cod_curso>', methods=['PUT'])
+@app.route('/cursos/<string:cod_curso>', methods=['PUT'])
 def update_curso(cod_curso):
     data = request.json
     update_result = db['cursos'].update_one(
@@ -917,7 +704,7 @@ def update_curso(cod_curso):
         return jsonify({'error': 'Curso não encontrado'}), 404
     return jsonify({'message': 'Curso atualizado com sucesso'})
 
-@app.route('/cursos/<int:cod_curso>', methods=['DELETE'])
+@app.route('/cursos/<string:cod_curso>', methods=['DELETE'])
 def delete_curso(cod_curso):
     delete_result = db['cursos'].delete_one({"cod_curso": cod_curso})
     if delete_result.deleted_count == 0:
@@ -929,7 +716,7 @@ def delete_curso(cod_curso):
 
 
 # Auxiliar Cursos
-@app.route('/cursoscoordenadores/<int:cod_curso>', methods=['GET'])
+@app.route('/cursoscoordenadores/<string:cod_curso>', methods=['GET'])
 def get_cursocoordenador(cod_curso):
     curso = db['cursos'].aggregate([
         { "$match": { "cod_curso": cod_curso } },
@@ -961,31 +748,15 @@ def get_cursocoordenador(cod_curso):
         return jsonify(result[0])  # Retorna o primeiro resultado
     return jsonify({'error': 'Curso ou coordenador não encontrado'}), 404
 
-@app.route('/cursosdisciplinas/<int:cod_curso>', methods=['GET'])
+@app.route('/cursosdisciplinas/<string:cod_curso>', methods=['GET'])
 def get_cursodisciplinas(cod_curso):
-    curso_disciplinas = db['cursos'].aggregate([
-        { "$match": { "cod_curso": cod_curso } },
-        { "$lookup": {
-            "from": "curso_disciplinas",  # Coleção curso_disciplinas
-            "localField": "cod_curso",  # Referência para o curso
-            "foreignField": "cod_curso",  # Campo correspondente na coleção curso_disciplinas
-            "as": "disciplinas_info"  # Campo para armazenar disciplinas
-        }},
-        { "$unwind": "$disciplinas_info" },
-        { "$lookup": {
-            "from": "disciplinas",  # Coleção disciplinas
-            "localField": "disciplinas_info.cod_disciplina",  # Referência cod_disciplina
-            "foreignField": "cod_disciplina",  # Campo correspondente na coleção disciplinas
-            "as": "disciplina_info"  # Campo para armazenar as informações das disciplinas
-        }},
-        { "$unwind": "$disciplina_info" },
-        { "$project": {
-            "cod_disciplina": "$disciplina_info.cod_disciplina",
-            "nome": "$disciplina_info.nome",
-            "fase": "$disciplina_info.fase",
-            "creditos": "$disciplina_info.creditos"
-        }}
-    ])
+    curso_disciplinas = list(db['disciplinas'].find(
+        {'cod_curso': cod_curso},  # Filtro: disciplinas do curso
+        {'_id': 0}  # Não incluir o campo _id no resultado
+    ))
+
+    
+    print(list(curso_disciplinas))
     
     result = list(curso_disciplinas)
     if result:
@@ -999,7 +770,7 @@ def get_cursodisciplinas(cod_curso):
 # Disciplinas
 @app.route('/disciplinas', methods=['GET'])
 def get_disciplinas():
-    disciplinas = db['disciplinas'].find()  # Encontra todas as disciplinas
+    disciplinas = list(db['disciplinas'].find({}, {"_id": 0}))  # Encontra todas as disciplinas
     return jsonify([disciplina for disciplina in disciplinas])  # Converte o cursor para lista e retorna
 
 @app.route('/disciplinas/<int:cod_disciplina>', methods=['GET'])
@@ -1071,6 +842,8 @@ def create_disciplinacurso(cod_curso):
 
 
 
+
+
 # Curso_Disciplinas
 @app.route('/curso_disciplinas', methods=['GET'])
 def get_curso_disciplinas():
@@ -1115,22 +888,21 @@ def delete_curso_disciplina():
 
 
 
-
 # Turmas
 @app.route('/turmas', methods=['GET'])
 def get_turmas():
-    turmas = db['turmas'].find()  # Encontrar todas as turmas
-    resultado = []
-    for turma in turmas:
-        resultado.append({
-            'cod_turma': turma['cod_turma'],
-            'cod_disciplina': turma['cod_disciplina'],
-            'horario': turma['horario'],
-            'ano': turma['ano'],
-            'semestre': turma['semestre'],
-            'cod_professor': turma['cod_professor']
-        })
-    return jsonify(resultado)
+    turmas = list(db['turmas'].find({}, {"_id": 0}))  # Encontrar todas as turmas
+    # resultado = []
+    # for turma in turmas:
+    #     resultado.append({
+    #         'cod_turma': turma['cod_turma'],
+    #         'cod_disciplina': turma['cod_disciplina'],
+    #         'horario': turma['horario'],
+    #         'ano': turma['ano'],
+    #         'semestre': turma['semestre'],
+    #         'cod_professor': turma['cod_professor']
+    #     })
+    return jsonify(turmas)
 
 # Obter uma turma específica
 @app.route('/turmas/<int:cod_turma>', methods=['GET'])

@@ -6,6 +6,14 @@ import { useNavigate } from 'react-router-dom';
 const CustomCursosTable = ({cursos}) => {
   const navigate = useNavigate();
 
+  // {
+  //   "cod_coordenador": "1",
+  //   "cod_curso": "1",
+  //   "credito_total": "10",
+  //   "nome": "Bacharelado em Ciências da Computação",
+  //   "periodo": "i"
+  // },
+
   return (
     <>
       <h1 className='mt-5'><center>Cursos</center></h1>
@@ -35,13 +43,13 @@ const CustomCursosTable = ({cursos}) => {
                   return (
                     <tr 
                     key={id} 
-                    onClick={() => navigate("/cursos/"+ curso[0])}
+                    onClick={() => navigate("/cursos/"+ curso["cod_curso"])}
                     role='button'>
-                      <td>{curso[0]}</td>
-                      <td>{curso[1]}</td>
-                      <td>{curso[2]}</td>
-                      <td>{curso[3]}</td>
-                      <td>{curso[4]}</td>
+                      <td>{curso["cod_curso"]}</td>
+                      <td>{curso["nome"]}</td>
+                      <td>{curso["periodo"]}</td>
+                      <td>{curso["credito_total"]}</td>
+                      <td>{curso["pessoa_info"]["nome"]}</td>
                     </tr>
                   )
                 })
